@@ -9,14 +9,10 @@ from sklearn.metrics import mean_squared_error, r2_score
 from statsmodels.tsa.stattools import adfuller
 import xgboost as xgb
 
-modwt = pd.read_csv('modwt.csv')
 modwt_mra = pd.read_csv('modwt_mra.csv')
-
-del modwt['Unnamed: 0']
 del modwt_mra['Unnamed: 0']
 
-D1, D2, D3, S3 = modwt['D1'], modwt['D2'], modwt['D3'], modwt['S3']
-W1, W2, W3, V3 = modwt_mra['W1'], modwt_mra['W2'], modwt_mra['W3'], modwt_mra['V3']
+D1, D2, D3, S3 = modwt_mra['D1'], modwt_mra['D2'], modwt_mra['D3'], modwt_mra['S3']
 
 ticker = 'SPY'
 stock = pdr.get_data_yahoo(ticker.upper(), start='2009-01-01', end=str(datetime.now())[0:11])
@@ -77,22 +73,22 @@ chkLbls = lbls[lbls.size - round(lbls.size * 0.3):]
 
 
 # MRA
-W1_train = pd.DataFrame(MODWT_MARS_TRAIN(W1))
-W2_train = pd.DataFrame(MODWT_MARS_TRAIN(W2))
-W3_train = pd.DataFrame(MODWT_MARS_TRAIN(W3))
-V3_train = pd.DataFrame(MODWT_MARS_TRAIN(V3))
+D1_train = pd.DataFrame(MODWT_MARS_TRAIN(D1))
+D2_train = pd.DataFrame(MODWT_MARS_TRAIN(D2))
+D3_train = pd.DataFrame(MODWT_MARS_TRAIN(D3))
+S3_train = pd.DataFrame(MODWT_MARS_TRAIN(S3))
 
-W1_train = W1_train.rename(columns={0: 'W1'})
-W2_train = W2_train.rename(columns={0: 'W2'})
-W3_train = W3_train.rename(columns={0: 'W3'})
-V3_train = V3_train.rename(columns={0: 'V3'})
+D1_train = D1_train.rename(columns={0: 'D1'})
+D2_train = D2_train.rename(columns={0: 'D2'})
+D3_train = D3_train.rename(columns={0: 'D3'})
+S3_train = S3_train.rename(columns={0: 'S3'})
 
-W1_train = pd.concat([W1_train, W2_train], axis=1)
-W1_train = pd.concat([W1_train, W3_train], axis=1)
-W1_train = pd.concat([W1_train, V3_train], axis=1)
+D1_train = pd.concat([D1_train, D2_train], axis=1)
+D1_train = pd.concat([D1_train, D3_train], axis=1)
+D1_train = pd.concat([D1_train, S3_train], axis=1)
 
-W1_train['sum'] = W1_train.sum(axis=1)
-plt.plot(np.array(W1_train['sum']), color='g')
+D1_train['sum'] = D1_train.sum(axis=1)
+plt.plot(np.array(D1_train['sum']), color='g')
 plt.plot(trnLbls)
 	
 	
@@ -102,7 +98,7 @@ DA_train['ACC'] = DA_train[0] - DA_train['com']
 DA_train['ACC'] = DA_train['ACC'].mask(DA_train['ACC'] > 0 , 1)
 DA_train['ACC'] = DA_train['ACC'].mask(DA_train['ACC'] < 0 , 0)
 
-DA_pred = pd.DataFrame(W1_train['sum'])
+DA_pred = pd.DataFrame(D1_train['sum'])
 DA_pred['com'] = DA_pred['sum'].shift(1)
 DA_pred['ACC2'] = DA_pred['sum'] - DA_pred['com']
 DA_pred['ACC2'] = DA_pred['ACC2'].mask(DA_pred['ACC2'] > 0 , 1)
@@ -169,22 +165,22 @@ def MODWT_MARS_TEST(series, regressors=4, delay=1, N=2000):
 
 
 # MRA
-W1_test = pd.DataFrame(MODWT_MARS_TEST(W1))
-W2_test = pd.DataFrame(MODWT_MARS_TEST(W2))
-W3_test = pd.DataFrame(MODWT_MARS_TEST(W3))
-V3_test = pd.DataFrame(MODWT_MARS_TEST(V3))
+D1_test = pd.DataFrame(MODWT_MARS_TEST(D1))
+D2_test = pd.DataFrame(MODWT_MARS_TEST(D2))
+D3_test = pd.DataFrame(MODWT_MARS_TEST(D3))
+S3_test = pd.DataFrame(MODWT_MARS_TEST(S3))
 
-W1_test = W1_test.rename(columns={0: 'W1'})
-W2_test = W2_test.rename(columns={0: 'W2'})
-W3_test = W3_test.rename(columns={0: 'W3'})
-V3_test = V3_test.rename(columns={0: 'V3'})
+D1_test = D1_test.rename(columns={0: 'D1'})
+D2_test = D2_test.rename(columns={0: 'D2'})
+D3_test = D3_test.rename(columns={0: 'D3'})
+S3_test = S3_test.rename(columns={0: 'S3'})
 
-W1_test = pd.concat([W1_test, W2_test], axis=1)
-W1_test = pd.concat([W1_test, W3_test], axis=1)
-W1_test = pd.concat([W1_test, V3_test], axis=1)
+D1_test = pd.concat([D1_test, D2_test], axis=1)
+D1_test = pd.concat([D1_test, D3_test], axis=1)
+D1_test = pd.concat([D1_test, S3_test], axis=1)
 
-W1_test['sum'] = W1_test.sum(axis=1)
-plt.plot(np.array(W1_test['sum']), color='g')
+D1_test['sum'] = D1_test.sum(axis=1)
+plt.plot(np.array(D1_test['sum']), color='g')
 plt.plot(chkLbls)
 plt.legend(['Pred','Actual'])
 	
@@ -195,7 +191,7 @@ DA_test['ACC'] = DA_test[0] - DA_test['com']
 DA_test['ACC'] = DA_test['ACC'].mask(DA_test['ACC'] > 0 , 1)
 DA_test['ACC'] = DA_test['ACC'].mask(DA_test['ACC'] < 0 , 0)
 
-DA_pred = pd.DataFrame(W1_test['sum'])
+DA_pred = pd.DataFrame(D1_test['sum'])
 DA_pred['com'] = DA_pred['sum'].shift(1)
 DA_pred['ACC2'] = DA_pred['sum'] - DA_pred['com']
 DA_pred['ACC2'] = DA_pred['ACC2'].mask(DA_pred['ACC2'] > 0 , 1)
@@ -211,7 +207,7 @@ ACC = round((AC[1] / len(chkLbls)) * 100, 3)
 
 print('Directional Accuracy: ' + str(ACC) + ' %')
 
-pred = W1_test['sum']
+pred = D1_test['sum']
 pred = pred[:-1]
 
 def rmse(predictions, targets):
@@ -221,7 +217,7 @@ print('MSE: ' + str(mean_squared_error(chkLbls, pred)))
 print('RMSE: ' + str(rmse(np.array(pred), chkLbls)))
 print('R Squared: ' + str(r2_score(chkLbls, pred)))
 
-Direction = W1_test['sum']
+Direction = D1_test['sum']
 
 if Direction[449] > Direction[448]:
     print("UP")
