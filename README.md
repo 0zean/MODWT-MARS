@@ -37,5 +37,6 @@ The concept of this hyrbid model was inspired from this paper by Jothimani, D., 
 **Out of Sample Results** (Zoomed in):
 ![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/test_zoom.jpg)
 
-**Directional Accuracy on predicted test set**:
+**Directional Accuracy on predicted test set with error metrics**:
+
 ![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/DA_test.jpg)
