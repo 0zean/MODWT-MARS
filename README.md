@@ -16,7 +16,7 @@ A level 3 MODWT-MRA, using a Dauchecies least asymtopic wavelet, is produced in 
 
 ![equation](http://latex.codecogs.com/gif.latex?x(t)%3Df(x(t-1),x(t-2),x(t-3),x(t-4))) 
 
-This is done for the 3 detail coefficients D1, D2, D3 and the smooth coefficient S3
+This is done for the 3 detail coefficients D1, D2, D3 and the smooth coefficient S3.
 
 Each of these are used as input for the MARS model, where Adaboost and bagging regressor boosters are used and then combined using xgboost, then summed up afterwards to produce the final prediction vector.
 
