@@ -223,3 +223,9 @@ if Direction[449] > Direction[448]:
     print("UP")
 else:
     print("DOWN")
+
+previous = stock[-1:]
+ret = np.array(Direction)
+ret = ret[-1:]
+price = np.array((np.exp(ret)) * previous)
+print('Price: ' + str(np.round(price[-1:], 2)))
