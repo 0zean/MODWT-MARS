@@ -12,7 +12,7 @@ The premise of this model is to decompose the log-return of the closing price of
 MODWT allows for decomposition of nondyadic lengthed signals and is circular-shift invariant making it suitable for financial time series prediction. It decomposes a signal in time-frequency space, exposing time-frequency information in the orignal signal not seen otherwise.
 Since the MODWT-MRA gives time-aligned decompositions it is used over MODWT alone. 
 
-A level 3 MODWT-MRA, using a Dauchecies least asymmetric wavelet, is produced in R using reflection of the right boundary to eliminate edge effects (padding techniques or thresholding could also be tried). A feature set is generated autoregressively by taking the 4 previous values at each time step given by the expression below.
+A level 3 MODWT-MRA, using a Dauchecies least asymmetric wavelet (symlet), is performed in R using reflection of the right boundary to eliminate edge effects (padding techniques or thresholding could also be tried). A feature set is generated autoregressively by taking the 4 previous values at each time step given by the expression below. A symlet is chosen since it is a minimum phase form of daubechies and is thus causal (since it's phase angle is approximatelty linear).
 
 At time t, value x is defined as: 
 
