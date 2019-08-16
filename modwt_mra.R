@@ -1,7 +1,7 @@
 library(waveslim)
 library(ggplot2)
 library(quantmod)
-setwd("PATH YOU WANT CSV TO SAVE TO")
+setwd("C:/destination/to/save/csv")
 
 # get stock data from yahoo-finance
 symbol <- "SPY"  
@@ -13,7 +13,7 @@ stock <- stock[, "SPY.Close"]
 # log returns
 returns <- data.frame(na.omit(diff(log(stock))))
 
-# level 3 MODWT-MRA using least-asymmetric daubechies wavelet of length 8
+# level 3 MODWT-MRA using least-asymmetric daubechies wavelet (symlet) of length 8
 MRA <- mra(returns, "la8", method = 'modwt', 3, boundary = "reflective") # reflective boundary to prevent edge effects
 
 D1 <- MRA[["D1"]]
