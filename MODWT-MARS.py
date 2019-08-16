@@ -21,12 +21,12 @@ returns = np.log(stock).diff().dropna()
 
 
 # Stationarity test
-result = adfuller(V3.dropna())
-print('ADF Statistic: %f' % result[0])
-print('p-value: %f' % result[1])
-print('Critical Values:')
-for key, value in result[4].items():
-	print('\t%s: %.3f' % (key, value))
+#result = adfuller(V3.dropna())
+#print('ADF Statistic: %f' % result[0])
+#print('p-value: %f' % result[1])
+#print('Critical Values:')
+#for key, value in result[4].items():
+#	print('\t%s: %.3f' % (key, value))
 
 
 def MODWT_MARS_TRAIN(series, regressors=4, delay=1, N=2000):
