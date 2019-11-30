@@ -3,6 +3,7 @@ library(ggplot2)
 library(quantmod)
 setwd("C:/destination/to/save/csv")
 
+
 # get stock data from yahoo-finance
 symbol <- "SPY"  
 series <- new.env()
