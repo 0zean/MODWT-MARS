@@ -13,20 +13,17 @@ stock <- stock[, "SPY.Close"]
 
 # log returns
 returns <- data.frame(na.omit(diff(log(stock))))
+returns <- as.ts(returns)
+
 
 # level 3 MODWT-MRA using least-asymmetric daubechies wavelet (symlet) of length 8
-MRA <- mra(returns, "la8", method = 'modwt', 3, boundary = "reflective") # reflective boundary to prevent edge effects
+MRA <- mra(returns, wf = "la8", method = 'modwt', J = 3, boundary = "reflection") # reflective boundary to prevent edge effects
 
 D1 <- MRA[["D1"]]
 D2 <- MRA[["D2"]]
 D3 <- MRA[["D3"]]
 S3 <- MRA[["S3"]]
 
-# remove reflected portion of signal
-D1 <- head(data.frame(D1), -nrow(returns))
-D2 <- head(data.frame(D2), -nrow(returns))
-D3 <- head(data.frame(D3), -nrow(returns))
-S3 <- head(data.frame(S3), -nrow(returns))
 
 df <- data.frame(D1,D2,D3,S3)
 
