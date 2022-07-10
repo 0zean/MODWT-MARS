@@ -4,7 +4,7 @@ Hybrid MODWT-MARS model for financial time series forecasting
 A hybrid model that combines maximal overlap discrete wavelet transform multiresolution analysis with multivariate adaptive regression splines to give improved one-step-ahead forecasting.
 
 This hyrbid model was inspired from this paper by Jothimani, D., Shankar, R., Yadav, S.S.:
-[Discrete Wavelet Transform Based Prediction of Stock Index: A Study on National Stock Exchange FiftyIndex](https://arxiv.org/ftp/arxiv/papers/1605/1605.07278.pdf)
+[Discrete Wavelet Transform Based Prediction of Stock Index: A Study on National Stock Exchange FiftyIndex](https://arxiv.org/ftp/arxiv/papers/1605/1605.07278.pdf) to explore the concept further.
 
 The premise of this model is to decompose the log-return of the closing price of a stock using MODWT multiresolution analysis and use the detail coefficients and smooth coefficient as inputs for the MARS model.
 
