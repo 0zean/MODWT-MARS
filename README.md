@@ -11,7 +11,7 @@ The premise of this model is to decompose the log-return of the closing price of
 MODWT allows for decomposition of nondyadic lengthed signals and is circular-shift invariant making it suitable for financial time series prediction. It decomposes a signal in time-frequency space, exposing time-frequency information in the orignal signal not seen otherwise.
 Since the MODWT-MRA phase shifts the coefficients to be approximately time-aligned it is used. 
 
-A level 3 MODWT-MRA, using a Dauchecies least asymmetric wavelet (symlet), is performed in R using reflection of the right boundary to eliminate edge effects*. A feature set is generated autoregressively by taking the 4 previous values at each time step given by the expression below.
+A level 3 MODWT-MRA, using a Dauchecies least asymmetric wavelet (symlet), is performed in R using reflection of the right boundary to mitigate edge effects* (See point below). A feature set is generated autoregressively by taking the 4 previous values at each time step given by the expression below.
 
 At time t, value x is defined as: 
 
@@ -21,7 +21,7 @@ This is done for the 3 detail coefficients D1, D2, D3 and the smooth coefficient
 
 Each of these are used as input for the MARS model, where Adaboost and bagging regressor boosters are used and then combined with extreme gradient boosting. The predicted coeffcient vectors are then summed up afterwards to produce the final prediction vector.
 
-* It is a common problem amongst quantitative finance papers to incorrectly apply wavelet decompositions to financial data and use these decompositions as features for model training. Both the DWT and MODWT make assumptions of the original signal, namely that it is periodic on the given domain and that all points on the signal are known beforehand. This is not the case for financial data especially in real-time situations. This model produces results that are even better than the listed paper's but it is misleading since the return series is not periodic and the choice of symlet looks ahead in the transform. More complex methods are required to actually apply the wavelet transform in this application such as the Segmented Lifted wavelet transform or sequential end-point flattening to eliminate the boundary effects in order to make the prediction at the boundary usefull.
+* It is a common problem amongst quantitative finance papers to incorrectly apply wavelet decompositions to financial data and use these decompositions as features for model training. Both the DWT and MODWT make assumptions of the original signal, namely that it is periodic on the given domain and that all points on the signal are known beforehand. This is not the case for financial data, especially in real-time situations. This model produces results that are even better than the listed paper's but it is misleading since the return series is not periodic and the choice of symlet looks ahead in the transform. More complex methods are required to actually apply the wavelet transform appropriately in this application such as the Segmented Lifted wavelet transform or sequential end-point flattening to eliminate the boundary effects in order to make the prediction at the boundary usefull.
 
 **Requirments**
 - numpy
