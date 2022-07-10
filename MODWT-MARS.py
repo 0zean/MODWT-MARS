@@ -51,6 +51,7 @@ series = returns[len(returns)-2000:]
 series = np.array(series)
 series = series.reshape(-1, 1)
 
+# Establish Autoregressive array
 D = 4
 T = 1
 N = 2000
