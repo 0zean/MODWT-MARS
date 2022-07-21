@@ -1,7 +1,7 @@
 library(waveslim)
 library(ggplot2)
 library(quantmod)
-setwd("C:/destination/to/save/csv")
+setwd("C:/destination/to/save/csv") # path to were you want CSV with MRA results to be saved
 
 
 # get stock data from yahoo-finance
