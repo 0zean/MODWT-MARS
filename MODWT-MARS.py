@@ -175,6 +175,7 @@ D1_test['sum'] = D1_test.sum(axis=1)
 plt.plot(np.array(D1_test['sum']), color='g')
 plt.plot(chkLbls)
 plt.legend(['Pred','Actual'])
+plt.savefig("Results/test.jpg")
 	
 	
 DA_test = pd.DataFrame(chkLbls)
