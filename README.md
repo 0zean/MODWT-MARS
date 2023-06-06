@@ -12,7 +12,7 @@ A level 3 MODWT-MRA, using a Daubechies least asymmetric wavelet of length 8, is
 
 At time t, value x is defined as: 
 
-![equation](http://latex.codecogs.com/gif.latex?x(t)%3Df(x(t-1),x(t-2),x(t-3),x(t-4))) 
+$x(t) = f(x(t-1),x(t-2),x(t-3),x(t-4))$
 
 This is done for the 3 detail coefficients $D1, D2, D3$ and the smooth coefficient $S3$.
 
