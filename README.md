@@ -40,21 +40,21 @@ Each coefficient is predicted separately using MARS and then AdaBoost. The predi
 
 # Plots
 **In Sample Results**:
-![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/train.jpg)
+![alt text](Results/train.jpg)
 
 **In Sample Results** (Zoomed in):
-![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/train_zoom.jpg)
+![alt text](Results/train_zoom.jpg)
 
 **Directional Accuracy on predicted training set**:
 
-![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/DA_train.jpg)
+![alt text](Results/DA_train.jpg)
 
 **Out of Sample Results**:
-![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/test.jpg)
+![alt text](Results/test.jpg)
 
 **Out of Sample Results** (Zoomed in, With one day ahead forecast):
-![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/test_zoom.jpg)
+![alt text](Results/test_zoom.jpg)
 
 **Directional Accuracy on predicted test set with error metrics**:
 
-![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/DA_test.jpg)
+![alt text](Results/DA_test.jpg)
