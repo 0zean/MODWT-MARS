@@ -25,7 +25,16 @@ Each coefficient is predicted separately using MARS and then AdaBoost. The predi
 * Additionally, applying ML algorithms to each detail coefficient and smooth coefficient separately only compounds these errors in boundary coefficients once added back together. A more thorough and causal framework is required for accurate sequential forecasting.
 
 # Packages
-**Requirments**
+
+<table>
+<tr>
+<th>Python</th>
+<th>R</th>
+</tr>
+<tr>
+<td>
+<pre>
+
 - numpy
 - pandas
 - statsmodels
@@ -37,6 +46,17 @@ Each coefficient is predicted separately using MARS and then AdaBoost. The predi
 - [py-earth](https://github.com/scikit-learn-contrib/py-earth)
 - sklearn
 
+</pre>
+</td>
+<td>
+
+- waveslim
+- ggplot2
+- quantmod
+
+</td>
+</tr>
+</table>
 
 # Plots
 **In Sample Results**:
