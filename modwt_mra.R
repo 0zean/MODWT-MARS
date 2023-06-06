@@ -3,7 +3,7 @@ library(ggplot2)
 library(quantmod)
 
 # path to were you want CSV with MRA results to be saved
-setwd("C:/destination/to/save/csv")
+setwd(getwd())
 
 # get stock data from yahoo-finance
 symbol <- "SPY"
