@@ -34,8 +34,8 @@ mra <- mra(returns,
 d1 <- mra[["D1"]]
 d2 <- mra[["D2"]]
 d3 <- mra[["D3"]]
-d3 <- mra[["S3"]]
+s3 <- mra[["S3"]]
 
-df <- data.frame(d1, d2, d3, d3)
+df <- data.frame(d1, d2, d3, s3)
 
 write.csv(df, file = "modwt_mra.csv")
