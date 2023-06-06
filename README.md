@@ -48,6 +48,7 @@ Each coefficient is predicted separately using MARS and then AdaBoost. The predi
 ![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/train_zoom.jpg)
 
 **Directional Accuracy on predicted training set**:
+
 ![alt text](https://github.com/Nicholas-Picini/MODWT-MARS/blob/master/Results/DA_train.jpg)
 
 **Out of Sample Results**:
