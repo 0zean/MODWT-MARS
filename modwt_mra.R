@@ -38,4 +38,4 @@ s3 <- mra[["S3"]]
 
 df <- data.frame(d1, d2, d3, s3)
 
-write.csv(df, file = "modwt_mra.csv")
+write.csv(df, file = "modwt_mra.csv", row.names = FALSE)
