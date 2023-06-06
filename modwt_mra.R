@@ -17,13 +17,12 @@ returns <- as.ts(returns)
 
 
 # level 3 MODWT-MRA using least-asymmetric daubechies wavelet (symlet) of length 8
-MRA <- mra(returns, wf = "la8", method = 'modwt', J = 3, boundary = "reflection") # reflective boundary to prevent edge effects
+MRA <- mra(returns, wf = "la8", method = 'modwt', J = 3, boundary = "reflection")
 
 D1 <- MRA[["D1"]]
 D2 <- MRA[["D2"]]
 D3 <- MRA[["D3"]]
 S3 <- MRA[["S3"]]
-
 
 df <- data.frame(D1,D2,D3,S3)
 
