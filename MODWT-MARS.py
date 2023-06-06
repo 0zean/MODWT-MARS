@@ -10,7 +10,6 @@ from statsmodels.tsa.stattools import adfuller
 import xgboost as xgb
 
 modwt_mra = pd.read_csv('modwt_mra.csv')
-del modwt_mra['Unnamed: 0']
 
 D1, D2, D3, S3 = modwt_mra['D1'], modwt_mra['D2'], modwt_mra['D3'], modwt_mra['S3']
 
