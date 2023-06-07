@@ -1,29 +1,28 @@
 library(waveslim)
 library(ggplot2)
-library(quantmod)
+library(alphavantager)
 
 # path to were you want CSV with MRA results to be saved
 setwd(getwd())
 
-# get stock data from yahoo-finance
-symbol <- "SPY"
-series <- new.env()
+# get stock data through Alpha Vantage
+key <- readLines("key.txt") # read api key from text file
+av_api_key(key)
 
-getSymbols.yahoo(symbol,
-                 env = series,
-                 from = "2009-01-01",
-                 to = Sys.Date() + 1,
-                 auto.assign = TRUE)
+data <- av_get("SPY",
+               av_fun = "TIME_SERIES_DAILY_ADJUSTED",
+               outputsize = "full")
 
-stock <- series[[symbol]]
-stock <- stock[, "SPY.Close"]
+data <- data[data$timestamp >= "2009-01-02",]
+stock <- data$close
+
 
 # log returns
 returns <- data.frame(na.omit(diff(log(stock))))
 returns <- as.ts(returns)
 
 
-# level 3 MODWT-MRA using least-asymmetric daubechies wavelet of length 8
+# level 3 MODWT-MRA using least-asymmetric Daubechies wavelet of length 8
 mra <- mra(returns,
            wf = "la8",
            method = "modwt",
