@@ -2,7 +2,7 @@
 A hybrid model that combines maximal overlap discrete wavelet transform multiresolution analysis (MODWT-MRA) with the multivariate adaptive regression splines algorithm (MARS) to produce a one-step-ahead forecast.
 
 This project is partially inspired from this paper by Jothimani, D., Shankar, R., Yadav, S.S.:
-[Discrete Wavelet Transform Based Prediction of Stock Index: A Study on National Stock Exchange FiftyIndex](https://arxiv.org/ftp/arxiv/papers/1605/1605.07278.pdf) to explore/extend the general concept and evaluate their findings and methodolgy.
+[Discrete Wavelet Transform Based Prediction of Stock Index: A Study on National Stock Exchange FiftyIndex](https://arxiv.org/ftp/arxiv/papers/1605/1605.07278.pdf) to explore their general concept and to evaluate their findings and methodolgy.
 
 The premise of this framework is to decompose the close price or log-return of a stock using MODWT-MRA and use the resulting detail coefficients and smooth coefficient as inputs for the MARS model. The MARS algorithm is chosen here subjectively to compare to the papers use of SVR and ANN models.
 
@@ -43,7 +43,7 @@ Each coefficient is predicted separately using MARS and then AdaBoost. The predi
 - matplotlib
 - scipy
 - xgboost
-- [py-earth](https://github.com/scikit-learn-contrib/py-earth)
+- [py-earth](https://github.com/scikit-learn-contrib/py-earth/tree/v0.2dev)
 - sklearn
 
 </pre>
