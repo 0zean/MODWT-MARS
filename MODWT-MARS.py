@@ -29,14 +29,14 @@ series = returns
 D = 4  # number of regressors
 T = 1  # delay
 N = len(series)
-data = np.zeros((N - T - (D - 1) * T, D))
-lbls = np.zeros((N - T - (D - 1) * T,))
+data = np.zeros((N-T-(D-1)*T, D))
+lbls = np.zeros((N-T-(D-1)*T,))
 
-for t in range((D - 1) * T, N - T):
+for t in range((D-1)*T, N-T):
     data[t-(D-1)*T, :] = [series[t-3*T], series[t-2*T], series[t-T], series[t]]
     lbls[t-(D-1)*T] = series[t+T]
-trnLbls = lbls[:lbls.size - round(lbls.size * 0.3)]
-chkLbls = lbls[lbls.size - round(lbls.size * 0.3):]
+trnLbls = lbls[:lbls.size - round(lbls.size*0.3)]
+chkLbls = lbls[lbls.size - round(lbls.size*0.3):]
 
 
 def MODWT_MARS(series, regressors=4, delay=1):
@@ -45,10 +45,10 @@ def MODWT_MARS(series, regressors=4, delay=1):
     D = regressors  # number of regressors
     T = delay  # delay
     N = len(src)
-    data = np.zeros((N - T - (D - 1) * T, D))
-    lbls = np.zeros((N - T - (D - 1) * T,))
+    data = np.zeros((N-T-(D-1)*T, D))
+    lbls = np.zeros((N-T-(D-1)*T, ))
 
-    for t in range((D - 1) * T, N - T):
+    for t in range((D-1)*T, N-T):
         data[t-(D-1)*T, :] = [src[t-3*T], src[t-2*T], src[t-T], src[t]]
         lbls[t-(D-1)*T] = src[t+T]
 
@@ -57,14 +57,15 @@ def MODWT_MARS(series, regressors=4, delay=1):
     chkData = data[lbls.size - round(lbls.size*0.3):, :]
     chkLbls = lbls[lbls.size - round(lbls.size*0.3):]
 
-    aa = np.array(chkLbls[-4:]).reshape(1, -1)
-    chkData = np.append(chkData, aa, axis=0)
+    # append last 4 labels to predict
+    a = np.array(chkLbls[-4:]).reshape(1, -1)
+    chkData = np.append(chkData, a, axis=0)
 
     mars = Earth()
     mars.fit(trnData, trnLbls)
 
     boosted_mars = AdaBoostRegressor(estimator=mars,
-                                     n_estimators=50,
+                                     n_estimators=100,
                                      learning_rate=0.1,
                                      loss="exponential")
 
@@ -85,17 +86,19 @@ pred = pd.concat([D1_test, D2_test, D3_test, S3_test], axis=1)
 pred["sum"] = pred.sum(axis=1)
 
 
-def mda(true: np.ndarray, pred: np.ndarray):
+def mda(t: np.ndarray, p: np.ndarray):
     """ Mean Directional Accuracy """
-    return np.mean((np.sign(true[1:] - true[:-1]) == np.sign(pred[1:] - true[:-1])).astype(int))
+    return int(np.mean((np.sign(t[1:]-t[:-1]) == np.sign(p[1:]-t[:-1]))))
 
 
 # Plot additive prediction against actual returns
 plt.plot(np.array(pred["sum"]), color="g")
 plt.plot(chkLbls)
 
-plt.annotate("Mean Directional Accuracy = {:.3f}".format(mda(chkLbls, pred["sum"][:-1])), (-20, max(chkLbls)+0.01))
-plt.annotate("RMSE = {:.3e}".format(mean_squared_error(chkLbls, pred["sum"][:-1], squared=False)), (-20, max(chkLbls)))
+y = max(chkLbls)
+
+plt.annotate("Mean Directional Accuracy = {:.3f}".format(mda(chkLbls, pred["sum"][:-1])), (-20, y+0.01))
+plt.annotate("RMSE = {:.3e}".format(mean_squared_error(chkLbls, pred["sum"][:-1], squared=False)), (-20, y))
 plt.legend(["Pred", "Actual"])
 
 figure = plt.gcf()
