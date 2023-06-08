@@ -98,7 +98,7 @@ def mda(actual: np.ndarray, predicted: np.ndarray):
 plt.plot(np.array(D1_test['sum']), color='g')
 plt.plot(chkLbls)
 plt.annotate("Mean Directional Accuracy = {:.3f}".format(mda(chkLbls, D1_test['sum'][:-1])), (-20, max(chkLbls)+0.01))
-plt.annotate("MSE = {:.3e}".format(mean_squared_error(chkLbls, D1_test['sum'][:-1])), (-20, max(chkLbls)))
+plt.annotate("RMSE = {:.3e}".format(mean_squared_error(chkLbls, D1_test['sum'][:-1], squared=False)), (-20, max(chkLbls)))
 plt.legend(['Pred','Actual'])
 
 figure = plt.gcf()
