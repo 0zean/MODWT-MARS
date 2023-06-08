@@ -1,4 +1,4 @@
-from datetime import date, timedelta
+from datetime import date
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -6,10 +6,9 @@ import pandas as pd
 from alpha_vantage.timeseries import TimeSeries
 from pyearth import Earth
 from sklearn.ensemble import AdaBoostRegressor
-from sklearn.metrics import mean_squared_error, r2_score
-from statsmodels.tsa.stattools import adfuller
+from sklearn.metrics import mean_squared_error
 
-# Load MRA detail and scale coefficients 
+# Load MRA detail and scale coefficients
 modwt_mra = pd.read_csv('modwt_mra.csv')
 
 d1, d2, d3, s3 = modwt_mra["d1"], modwt_mra["d2"], modwt_mra["d3"], modwt_mra["s3"]
@@ -42,7 +41,7 @@ trnLbls = lbls[:lbls.size - round(lbls.size * 0.3)]
 chkLbls = lbls[lbls.size - round(lbls.size * 0.3):]
 
 
-def MODWT_MARS_TEST(series, regressors=4, delay=1):
+def MODWT_MARS(series, regressors=4, delay=1):
     series = series.values
 
     D = regressors  # number of regressors
@@ -54,7 +53,7 @@ def MODWT_MARS_TEST(series, regressors=4, delay=1):
     for t in range((D - 1) * T, N - T):
         data[t - (D - 1) * T, :] = [series[t - 3 * T], series[t - 2 * T], series[t - T], series[t]]
         lbls[t - (D - 1) * T] = series[t + T]
-    
+
     trnData = data[:lbls.size - round(lbls.size * 0.3), :]
     trnLbls = lbls[:lbls.size - round(lbls.size * 0.3)]
     chkData = data[lbls.size - round(lbls.size * 0.3):, :]
@@ -73,15 +72,10 @@ def MODWT_MARS_TEST(series, regressors=4, delay=1):
 
 
 # MRA
-D1_test = pd.DataFrame(MODWT_MARS_TEST(d1))
-D2_test = pd.DataFrame(MODWT_MARS_TEST(d2))
-D3_test = pd.DataFrame(MODWT_MARS_TEST(d3))
-S3_test = pd.DataFrame(MODWT_MARS_TEST(s3))
-
-D1_test = D1_test.rename(columns={0: 'D1'})
-D2_test = D2_test.rename(columns={0: 'D2'})
-D3_test = D3_test.rename(columns={0: 'D3'})
-S3_test = S3_test.rename(columns={0: 'S3'})
+D1_test = pd.DataFrame(MODWT_MARS(d1), columns=["D1"])
+D2_test = pd.DataFrame(MODWT_MARS(d2), columns=["D2"])
+D3_test = pd.DataFrame(MODWT_MARS(d3), columns=["D3"])
+S3_test = pd.DataFrame(MODWT_MARS(s3), columns=["S3"])
 
 D1_test = pd.concat([D1_test, D2_test], axis=1)
 D1_test = pd.concat([D1_test, D3_test], axis=1)
@@ -95,11 +89,11 @@ def mda(actual: np.ndarray, predicted: np.ndarray):
     return np.mean((np.sign(actual[1:] - actual[:-1]) == np.sign(predicted[1:] - actual[:-1])).astype(int))
 
 
-plt.plot(np.array(D1_test['sum']), color='g')
+plt.plot(np.array(D1_test["sum"]), color="g")
 plt.plot(chkLbls)
-plt.annotate("Mean Directional Accuracy = {:.3f}".format(mda(chkLbls, D1_test['sum'][:-1])), (-20, max(chkLbls)+0.01))
-plt.annotate("RMSE = {:.3e}".format(mean_squared_error(chkLbls, D1_test['sum'][:-1], squared=False)), (-20, max(chkLbls)))
-plt.legend(['Pred','Actual'])
+plt.annotate("Mean Directional Accuracy = {:.3f}".format(mda(chkLbls, D1_test["sum"][:-1])), (-20, max(chkLbls)+0.01))
+plt.annotate("RMSE = {:.3e}".format(mean_squared_error(chkLbls, D1_test["sum"][:-1], squared=False)), (-20, max(chkLbls)))
+plt.legend(["Pred", "Actual"])
 
 figure = plt.gcf()
 figure.set_size_inches(8, 6)
