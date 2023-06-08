@@ -13,7 +13,7 @@ data <- av_get("SPY",
                av_fun = "TIME_SERIES_DAILY_ADJUSTED",
                outputsize = "full")
 
-data <- data[data$timestamp >= "2009-01-02",]
+data <- data[data$timestamp >= "2009-01-02", ]
 stock <- data$close
 
 
