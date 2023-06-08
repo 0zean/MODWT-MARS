@@ -6,6 +6,8 @@ from pyearth import Earth
 from sklearn.ensemble import AdaBoostRegressor
 from sklearn.metrics import mean_squared_error
 
+np.random.seed(55)
+
 # Load MRA detail and scale coefficients
 mra = pd.read_csv("modwt_mra.csv")
 
