@@ -59,22 +59,8 @@ Each coefficient is predicted separately using MARS and then AdaBoost. The predi
 </table>
 
 # Plots
-**In Sample Results**:
-![alt text](Results/train.jpg)
+**Out of Sample Results** (MSE & MDA):
+![alt text](Results/test.png)
 
-**In Sample Results** (Zoomed in):
-![alt text](Results/train_zoom.jpg)
-
-**Directional Accuracy on predicted training set**:
-
-![alt text](Results/DA_train.jpg)
-
-**Out of Sample Results**:
-![alt text](Results/test.jpg)
-
-**Out of Sample Results** (Zoomed in, With one day ahead forecast):
-![alt text](Results/test_zoom.jpg)
-
-**Directional Accuracy on predicted test set with error metrics**:
-
-![alt text](Results/DA_test.jpg)
+**Out of Sample Results** (Zoomed in):
+![alt text](Results/test_zoom.png)
