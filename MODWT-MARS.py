@@ -65,7 +65,7 @@ def MODWT_MARS(series, regressors=4, delay=1):
     mars.fit(trnData, trnLbls)
 
     boosted_mars = AdaBoostRegressor(estimator=mars,
-                                     n_estimators=100,
+                                     n_estimators=50,
                                      learning_rate=0.1,
                                      loss="exponential")
 
@@ -88,17 +88,20 @@ pred["sum"] = pred.sum(axis=1)
 
 def mda(t: np.ndarray, p: np.ndarray):
     """ Mean Directional Accuracy """
-    return int(np.mean((np.sign(t[1:]-t[:-1]) == np.sign(p[1:]-t[:-1]))))
+    return np.mean((np.sign(t[1:]-t[:-1]) == np.sign(p[1:]-t[:-1])))
 
+
+# Metrics (RMSE and DA were used in the paper)
+mda = mda(chkLbls, pred["sum"][:-1])
+rmse = mean_squared_error(chkLbls, pred["sum"][:-1], squared=False)
 
 # Plot additive prediction against actual returns
 plt.plot(np.array(pred["sum"]), color="g")
 plt.plot(chkLbls)
 
 y = max(chkLbls)
-
-plt.annotate("Mean Directional Accuracy = {:.3f}".format(mda(chkLbls, pred["sum"][:-1])), (-20, y+0.01))
-plt.annotate("RMSE = {:.3e}".format(mean_squared_error(chkLbls, pred["sum"][:-1], squared=False)), (-20, y))
+plt.annotate("Mean Directional Accuracy = {:.3f}".format(mda), (-20, y+0.01))
+plt.annotate("RMSE = {:.3e}".format(rmse), (-20, y))
 plt.legend(["Pred", "Actual"])
 
 figure = plt.gcf()
