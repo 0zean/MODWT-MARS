@@ -102,6 +102,7 @@ plt.plot(chkLbls)
 y = max(chkLbls)
 plt.annotate("Mean Directional Accuracy = {:.3f}".format(mda), (-20, y+0.01))
 plt.annotate("RMSE = {:.3e}".format(rmse), (-20, y))
+plt.title("SPY Returns prediction using MODWT-MARS Framework")
 plt.legend(["Pred", "Actual"])
 
 figure = plt.gcf()
