@@ -52,7 +52,7 @@ Each coefficient is predicted separately using MARS and then AdaBoost. The predi
 
 - waveslim
 - ggplot2
-- quantmod
+- alphavantager
 
 </td>
 </tr>
