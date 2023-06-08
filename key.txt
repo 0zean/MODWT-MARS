@@ -1,1 +1,1 @@
-RDO0LSA057HUKGIP
+Replace this text with your own AlphaVantage API key
