@@ -38,7 +38,7 @@ Each coefficient is predicted separately using MARS and then AdaBoost. The predi
 - numpy
 - pandas
 - statsmodels
-- pandas datareader
+- alphavantage
 - datetime
 - matplotlib
 - scipy
